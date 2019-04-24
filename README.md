@@ -29,3 +29,9 @@ Evaluate the results
 ```
 python evalb.py truth.txt test.parsed
 ```
+
+### Note:
+grammar file can be found here
+```
+./data/grammar.pcfg.bin
+```
