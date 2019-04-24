@@ -1,4 +1,4 @@
-# PCFG-trainer-CYK-parser
+# PCFG - CYK-parser
 Implementation of CYK parser for constituency parsing using probabilistic context free grammar using a small subset of parse trees from the Penn Treebank, and a CYK parser that uses that PCFG.
 
 ## To run parser from terminal
