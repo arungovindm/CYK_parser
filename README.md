@@ -1,34 +1,31 @@
 # PCFG-trainer-CYK-parser
-A small Python program to trains a probabilistic context free grammar using a small subset of parse trees from the Penn Treebank, and a CYK parser that uses that PCFG.
+Implementation of CYK parser for constituency parsing using probabilistic context free grammar using a small subset of parse trees from the Penn Treebank, and a CYK parser that uses that PCFG.
 
-## How to run
+## To run parser from terminal
+```
+sh script.sh
+```
+
+
+## To learn grammar and parse
 First preprocess the tree bank to replace single occurence terminals with "\<unk\>"
 ```
-cat train.trees | python replace_onecounts.py > train.trees.unk 2> train.dict
+python create_test.py
+cat train.trees | python replace_onecounts.py > train.trees_unk 2> train.dict
+cat train.trees_unk | python binarize.py > train.trees.bin
 ```
 
-Then binarize the trees in the new tree bank
+Learning the grammar
 ```
-cat train.trees.unk | python binarize.py > train.trees.unk.bin
-```
-
-Then learn the PCFG
-```
-cat train.trees.unk.bin | python learn_pcfg.py > grammar.pcfg.bin
+python learn_pcfg.py train.trees.bin grammar.pcfg.bin
 ```
 
 Run the CYK parser
 ```
-cat test.txt | python cky.py grammar.pcfg.bin train.dict > test.parsed.new
+cat testing.txt | python cky.py grammar.pcfg.bin train.dict > test.parsed
 ```
 
 Evaluate the results
 ```
-python evalb.py test.trees test.parsed.new
+python evalb.py truth.txt test.parsed
 ```
-
-## Evaluation
-
-Precision = 314/371 = 0.846
-Recall = 314/385 = 0.816
-F-1 score = 0.831
